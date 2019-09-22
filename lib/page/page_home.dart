@@ -1,21 +1,21 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:select_theme_example/select_theme/custom_theme.dart';
-import 'package:select_theme_example/select_theme/select_theme.dart';
+import 'package:select_theme_example/theme/theme_config.dart';
+import 'package:select_theme_example/theme/theme_select.dart';
 
-class PageA extends StatefulWidget {
+class PageHome extends StatefulWidget {
   @override
-  _PageAState createState() => _PageAState();
+  _PageHomeState createState() => _PageHomeState();
 }
 
-class _PageAState extends State<PageA> {
+class _PageHomeState extends State<PageHome> {
 
   /// Método que alterna entre os temas, de acordo com o key que é passada
-  void _changeTheme(BuildContext buildContext, ThemeOptions key) {
+  void _changeTheme(BuildContext context, ThemeAspect aspect) {
     /// Usando o método static do InheritedWidget pai para alterar o tema,
     /// atravéz da key recebida
-    CustomTheme.instanceOf(buildContext).changeTheme(key);
+    ThemeConfig.instanceOf(context).changeTheme(aspect);
   }
 
   @override
@@ -31,21 +31,27 @@ class _PageAState extends State<PageA> {
             /// atravéz do método _changeTheme desta classe
             RaisedButton(
               onPressed: () {
-                _changeTheme(context, ThemeOptions.LIGHT);
+                _changeTheme(context, ThemeAspect.LIGHT);
               },
               child: Text("Light!"),
             ),
             RaisedButton(
               onPressed: () {
-                _changeTheme(context, ThemeOptions.DARK);
+                _changeTheme(context, ThemeAspect.DARK);
               },
               child: Text("Dark!"),
             ),
             RaisedButton(
               onPressed: () {
-                _changeTheme(context, ThemeOptions.DARKER);
+                _changeTheme(context, ThemeAspect.DARKER);
               },
               child: Text("Darker!"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                _changeTheme(context, ThemeAspect.COLORS);
+              },
+              child: Text("Colors!"),
             ),
             Divider(
               height: 100,
@@ -58,6 +64,12 @@ class _PageAState extends State<PageA> {
               width: 100,
               height: 100,
             ),
+            Divider(
+              height: 60,
+            ),
+            Card(
+              child: Text('CARD'),
+            )
           ],
         ),
       ),

@@ -1,50 +1,39 @@
-
 import 'package:flutter/material.dart';
-import 'package:select_theme_example/page_a.dart';
-import 'package:select_theme_example/select_theme/select_theme.dart';
-
-import 'select_theme/custom_theme.dart';
+import 'package:select_theme_example/page/page_home.dart';
+import 'package:select_theme_example/theme/theme_config.dart';
+import 'package:select_theme_example/theme/theme_select.dart';
 
 void main() {
   runApp(
     /// Envolvendo o Main em um StatefulWidget, que é filho de um InheritedWidget
-    CustomTheme(
+    ThemeConfig(
       /// Tema inicial
-      initialTheme: ThemeOptions.LIGHT,
+      initialTheme: ThemeAspect.LIGHT,
       child: Main(),
     ),
   );
 }
 
-class Main extends StatelessWidget {
+///
+class Main extends StatefulWidget {
+  @override
+  _MainState createState() => _MainState();
+}
+
+///
+class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Theme selector example',
-      theme: CustomTheme.of(context),
-      home: _MainPage(title: 'Main page',),
-    );
-  }
-}
-
-class _MainPage extends StatefulWidget {
-  _MainPage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<_MainPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(widget.title),
+      theme: ThemeConfig.of(context), /// Recupera o tema default e configura o tema da aplicação
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor, /// Recupera uma cor do tema da aplicação
+          title: Text('Main Page'),
+        ),
+        body: PageHome(),
       ),
-      body: PageA(),
     );
   }
 }
